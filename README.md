@@ -1,6 +1,6 @@
 Since there is no (yet) working modbus connection to Grundig GHP-MM heat pumps with GR-LC07 controller, the only way to get/set data is to tap  modbus communication between controller & unit
 
-<img src='images/gr-lr07.jpg' width='200'>
+<img src='images/gr-lc07.jpg' width='200'>
 
 ghp-mm2mqtt.py is quick & dirty hack to publish eavesdropped communication between unit and controller to MQTT (to be consumed by ie HASS)
 
