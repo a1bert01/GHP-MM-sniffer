@@ -20,7 +20,7 @@ MQTT_TOPIC_PREFIX= "GHP"
 MQTT_USERNAME = "ghp"  # Replace with your MQTT username
 MQTT_PASSWORD = "asdf"  # Replace with your MQTT password
 
-#test write msg, sent only once and only if not empty, have to be valid modbus datagram including crc
+#experimental write msg, sent only once and only if not empty, have to be valid modbus datagram including crc
 #write slave 241 addr 2000 data: 8 0 0 21 26 43 27
 #writemsg=b'\xF0\x10\x07\xD0\x00\x07\x0E\x00\x08\x00\x00\x00\x00\x00\x15\x00\x1A\x00\x2B\x00\x1B\x4E\x84'
 #writemsg=b'\xF0\x10\x07\xD0\x00\x07\x0E\x00\x08\x00\x01\x00\x10\x00\x15\x00\x1A\x00\x2B\x00\x1B\x87\xB8'
