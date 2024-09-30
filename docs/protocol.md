@@ -1,8 +1,9 @@
 communication between the unit and the controller:
-
+```
 - modbus 9600 8n1 (B - brown A - red wire to the controller, or L_A L_B to U19 on the base board)
 - master: unit; slave: controller (id: 240)
-
+```
+```
 -unit regularly writes its operating data to the  at addr position 300+40 see manual - parameter reading ( M + down arrow buttons )
 -the unit regularly writes temperatures and something (addr position 1000): GHP/10/240/1000: [0, 21, 44, 21, 0]
 -the unit regularly reads the driver status (addr position 2000): GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]:
@@ -20,18 +21,18 @@ communication between the unit and the controller:
 - when service settings are changed, the 1st register is set to 1 and the unit reads the current setting several times in succession
 - write requests for slaves 251 and 224 can be seen on bus too (with no response)
 
-
+```
 a sample communication,  "GHP/10/240/400" is my topic for MQTT message means operation 0x10,slave 240, address 400, followed by json array of short integers
 
-
+```
 GHP/10/240/400: [0, 0, 0, 0, 17665]  ???
-GHP/10/240/316: [23, 0, 0, 0, 65, 0, 25, 2, 0, 0, 0, 0, 44, 21, 2, 0] zapis parametru 17-32
-GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27] cteni stavu ovladace 
+GHP/10/240/316: [23, 0, 0, 0, 65, 0, 25, 2, 0, 0, 0, 0, 44, 21, 2, 0] write status variables 17-32
+GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27] read controller status 
 GHP/10/240/400: [0, 0, 0, 0, 17665] ??
-GHP/10/240/300: [0, 96, 12, 21, 20, 20, 14, 17, 0, 0, 0, 0, 0, 0, 0, 0] zapis parametru 1-16
+GHP/10/240/300: [0, 96, 12, 21, 20, 20, 14, 17, 0, 0, 0, 0, 0, 0, 0, 0] write status variables 1-16
 GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]
 GHP/10/240/400: [0, 0, 0, 0, 17665]
-GHP/10/240/1000: [0, 21, 44, 21, 0]  ??, teplota vstup,teplota TUV, teplota vystup, ??  - mozna chybovy kod
+GHP/10/240/1000: [0, 21, 44, 21, 0]  
 GHP/10/240/400: [0, 0, 0, 0, 17665]
 GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]
 GHP/10/240/400: [0, 0, 0, 0, 17665]
@@ -55,8 +56,8 @@ GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]
 GHP/10/240/400: [0, 0, 0, 0, 17665]
 GHP/10/240/300: [0, 96, 12, 21, 21, 20, 14, 17, 0, 0, 0, 0, 0, 0, 0, 0]
 ID: 240, Read Input Registers: 0x04, Read address: 0, Read Quantity: 4
-ID: 240, Read Input Registers: 0x04, Read byte count: 8, Read data: [00 01 00 00 00 00 00 00]   doslo ke zmene nastaveni
-GHP/3/240/2100: [2, 5, 0, -1, 68, 68, 68, 80, 80, 80, -5, 12, 40, 96, 60, 85] cteni servisniho nastaveni z ovladace (viz navod M + sipka dolu, heslo 1212
+ID: 240, Read Input Registers: 0x04, Read byte count: 8, Read data: [00 01 00 00 00 00 00 00] service settings have been changed
+GHP/3/240/2100: [2, 5, 0, -1, 68, 68, 68, 80, 80, 80, -5, 12, 40, 96, 60, 85] read service settings from controller
 GHP/3/240/2116: [1, 55, 65, 30, 0, 72, 76, 0, 0, 4, 0, 5, 0, 5, 0, 24]
 GHP/3/240/2132: [3, 3, -30, 0, 0, 0, 17, 10, -20, 15, 10, 50, 2, -5, 26, 0]
 GHP/3/240/2148: [0, 0, 35, 60, 17, 53, 44, 40, 5, 0, 0, 0, 90, 70, 1, 3]
@@ -109,3 +110,4 @@ GHP/10/240/300: [0, 96, 12, 21, 20, 20, 14, 17, 0, 0, 0, 0, 0, 0, 0, 0]
 GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]
 GHP/10/240/400: [0, 0, 0, 0, 17665]
 GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]
+```
