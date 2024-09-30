@@ -70,7 +70,7 @@ def decodeModbus():
     if index < 0 or buflen-index < 8:
         return
     buffer = buffer[index:] #discard all data before
-    _logger.debug(f"found on postion {index}\nbuffer={buffer}\n")
+    _logger.debug(f"found on position {index}\nbuffer={buffer}\n")
     if buffer[1] == 3:  # 0x3 read command
      if verify_modbus_crc(buffer[0:8]): #test Read Request (fixed sized)
       readAddr=struct.unpack('>h',buffer[2:4])[0] # valid ReadRequest, save target address
