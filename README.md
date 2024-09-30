@@ -1,4 +1,4 @@
-Since there is no (yet) working modbus connection to Grundig GHP-MM heat pumps with GR-LC07 controller, the only way to get/set data is to tap  modbus communication between controller & unit
+Since there is no (yet) working modbus connection to Grundig GHP-MM heat pumps with GR-LC07 controller, the only way to get/set parameters is to tap  modbus communication between controller & unit
 
 <img src='images/gr-lc07.jpg' width='200'>
 
