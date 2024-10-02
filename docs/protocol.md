@@ -6,6 +6,12 @@ communication between the unit and the controller:
 ```
 -unit regularly writes its operating data to the  at addr position 300+40 see manual - parameter reading ( M + down arrow buttons )
 -the unit regularly writes temperatures and something (addr position 1000): GHP/10/240/1000: [0, 21, 44, 21, 0]
+0 - status  (1-oil return)
+21 - return temp
+44 - DHW temp
+21 - output temp
+0 -  (error code??)
+
 -the unit regularly reads the driver status (addr position 2000): GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]:
 8 - current operational mode 
 1 - controller is on (0 - off)
