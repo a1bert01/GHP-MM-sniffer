@@ -5,7 +5,7 @@ Since there is no (yet) working modbus connection to Grundig GHP-MM heat pumps w
 ghp-mm2mqtt.py is quick & dirty hack to publish eavesdropped communication between unit and controller to MQTT (to be consumed by ie HASS)
 
 
-connect your rs485 B to brown and A to red wire (black is GND, orange 12V):
+SM JST connector: connect your rs485 B to brown and A to red wire (black is GND, orange 12V):
 
 <img src='images/jst-connector.jpg' width='200'> 
 <img src='images/modbus2usb.jpg' width='200'>
