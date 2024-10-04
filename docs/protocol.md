@@ -25,6 +25,8 @@ communication between the unit and the controller:
     ID: 240, Read Input Registers: 0x04, Read byte count: 8, Read data: [00 00 00 00 00 00 00 00 00 00 00]
 
 - when service settings are changed, the 1st register is set to 1 and the unit reads the current setting several times in succession
+- valid ranges for service settings (min/max) are written into controller upon bootup at addrs 100(min) & 200(max)
+- (still)unknown mask at bootup at ranges 500-599 (the same count like setting) and 600-640 (the same count like parameters)
 - write requests for slaves 251 and 224 can be seen on bus too (with no response)
 
 ```
