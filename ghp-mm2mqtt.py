@@ -7,7 +7,8 @@ import struct
 import json
 import time
 import logging
-logging.basicConfig(level=logging.INFO)
+#logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.ERROR)
 _logger = logging.getLogger(__name__)
 
 #serial port
@@ -18,12 +19,12 @@ MQTT_BROKER = "172.16.1.254"  # Replace with your broker address
 MQTT_PORT = 1883  # Default MQTT port
 MQTT_TOPIC_PREFIX= "GHP"
 MQTT_USERNAME = "ghp"  # Replace with your MQTT username
-MQTT_PASSWORD = "asdf"  # Replace with your MQTT password
+MQTT_PASSWORD = "65asdf654"  # Replace with your MQTT password
 
-#experimental write msg, sent only once and only if not empty, have to be valid modbus datagram including crc
-#write slave 241 addr 2000 data: 8 0 0 21 26 43 27
-#writemsg=b'\xF0\x10\x07\xD0\x00\x07\x0E\x00\x08\x00\x00\x00\x00\x00\x15\x00\x1A\x00\x2B\x00\x1B\x4E\x84'
-#writemsg=b'\xF0\x10\x07\xD0\x00\x07\x0E\x00\x08\x00\x01\x00\x10\x00\x15\x00\x1A\x00\x2B\x00\x1B\x87\xB8'
+#modbus message to write, it's emptied upon writing and can be set
+#by mqtt MQTT_TOPIC_PREFIX/set topic in on_message()
+#turn off 
+#writemsg=b'\xF0\x06\x07\xd1\x00\x00'
 writemsg=''
 
 
@@ -81,6 +82,7 @@ def decodeModbus():
         numshorts=int((psize-5)/2)
         publish(buffer[0],3,readAddr,struct.unpack(f'>{numshorts}h',buffer[3:psize-2]))
         if len(writemsg) > 5: 
+          writemsg=writemsg+modbus_crc16(writemsg).to_bytes(2,'little');
           _logger.info(f"WRITE {writemsg}\n")
           ser.write(writemsg)  
           writemsg='';
@@ -102,11 +104,30 @@ def decodeModbus():
  
     decodeModbus()
 
+def on_connect(client, userdata, flags, rc):
+    client.subscribe(MQTT_TOPIC_PREFIX+"/set/#")
+
+def on_message(client, userdata, msg):
+    global writemsg
+    _logger.debug(f"MQTT received msg.topic={msg.topic} msg.payload={msg.payload}")
+    addr= msg.topic.split('/')
+    if ( int(addr[3]) >= 2000 and int(addr[3]) <= 2006 ):
+     newm=struct.pack(">BBhh",int(addr[2]),6,int(addr[3]),int(msg.payload))
+     writemsg=newm
+    else:
+     _logger.error(f"Write request outside safe range(0x2000-0x2006) msg.topic={msg.topic} msg.payload={msg.payload}")
 
 # Initialize and connect to the MQTT broker with authentication
 mqtt_client = mqtt.Client()
+mqtt_client.on_connect = on_connect
+mqtt_client.on_message = on_message
+
 mqtt_client.username_pw_set(MQTT_USERNAME, MQTT_PASSWORD)  # Set username and password
 mqtt_client.connect(MQTT_BROKER, MQTT_PORT, 60)
+
+mqtt_client.loop_start()
+time.sleep(1)
+
 
 buffer=bytearray(0)
 readAddr=0
