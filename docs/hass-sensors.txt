@@ -500,3 +500,63 @@ mqtt:
         name: GHP-MM08
         model: MM08
 
+ select:
+   - name: "Operating mode"
+     state_topic: GHP/3/240/2000
+     unique_id: "ghp/operating_mode"
+     options:
+       - Cooling
+       - Heating
+       - Auto
+       - DHW
+       - Cooling+DHW
+       - Heating+DHW
+     value_template: >
+      {% if  value_json[0] == 1  %} Cooling
+      {% elif  value_json[0] == 2 %} Heating
+      {% elif  value_json[0] == 4 %} Auto
+      {% elif  value_json[0] == 8 %} DHW
+      {% elif  value_json[0] == 9 %} Cooling+DHW
+      {% elif  value_json[0] == 10 %} Heating+DHW 
+      {% endif %}
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+     command_topic: "GHP/set/240/2000"
+     command_template: >
+       {% set opmodes = ({1:"Cooling",2:"Heating",4:"Auto",8:"DHW",9:"Cooling+DHW",10:"Heating+DHW"}) %}
+       {% for val in opmodes %}
+        {% if loop.index == this.attributes.options.index(value)+1 %}
+         {{ val }}
+        {% endif %}
+       {% endfor %}    
+
+ number:
+   - name: "Heating target"
+     state_topic: GHP/3/240/2000 
+     value_template: "{{ value_json[4] }}"
+     device_class: temperature
+     unit_of_measurement: "°C"
+     unique_id: "ghp/heating_target"
+     command_topic: "GHP/set/240/2004"
+     command_template: "{{ value }}"
+     min: 25
+     max: 35
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
+   - name: "DHW target"
+     state_topic: GHP/3/240/2000
+     value_template: "{{ value_json[5] }}"
+     unique_id: "ghp/dhw_target"
+     command_topic: "GHP/set/240/2005"
+     command_template: "{{ value }}"
+     device_class: temperature
+     unit_of_measurement: "°C"
+     min: 25
+     max: 55
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
