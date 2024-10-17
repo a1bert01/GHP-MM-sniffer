@@ -512,13 +512,8 @@ mqtt:
        - Cooling+DHW
        - Heating+DHW
      value_template: >
-      {% if  value_json[0] == 1  %} Cooling
-      {% elif  value_json[0] == 2 %} Heating
-      {% elif  value_json[0] == 4 %} Auto
-      {% elif  value_json[0] == 8 %} DHW
-      {% elif  value_json[0] == 9 %} Cooling+DHW
-      {% elif  value_json[0] == 10 %} Heating+DHW 
-      {% endif %}
+       {% set opmodes = ({1:"Cooling",2:"Heating",4:"Auto",8:"DHW",9:"Cooling+DHW",10:"Heating+DHW"}) %}
+       {{ opmodes[value_json[0]] }}
      device:
         identifiers: ghp-mm08
         name: GHP-MM08
