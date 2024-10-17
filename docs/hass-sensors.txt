@@ -559,4 +559,16 @@ mqtt:
      device:
         identifiers: ghp-mm08
         name: GHP-MM08
+ switch:
+  -  name: "Main switch"
+     state_topic: GHP/3/240/2000
+     unique_id: "ghp/main_switch"
+     command_topic: "GHP/set/240/2001"
+     value_template: "{{ value_json[1] }}"
+     payload_on: 1
+     payload_off: 0
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
 
