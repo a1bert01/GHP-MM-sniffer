@@ -1,0 +1,14 @@
+[Unit]
+Description=Grundig GHP-MM08 logger
+After=network.target
+
+[Service]
+ExecStart=/opt/grundig/ghp-mm2mqtt.py
+Type=simple
+User=mqtt
+Group=dialout
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target
