@@ -109,7 +109,7 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     global writemsg
-    _logger.debug(f"MQTT received msg.topic={msg.topic} msg.payload={msg.payload}")
+    _logger.info(f"MQTT received msg.topic={msg.topic} msg.payload={msg.payload}")
     addr= msg.topic.split('/')
     if ( int(addr[3]) >= 2000 and int(addr[3]) <= 2006 ):
      newm=struct.pack(">BBhh",int(addr[2]),6,int(addr[3]),int(msg.payload))
