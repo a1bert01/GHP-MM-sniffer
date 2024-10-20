@@ -19,7 +19,44 @@
 #      value_template:  "{{states('sensor.tc_summation_received_2') | float }}"
    
 mqtt: 
- sensor: 
+ sensor:
+ - name: "Service settings 1"
+     state_topic: GHP/3/240/2100
+     unique_id: "ghp/settings_1"
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
+   - name: "Service settings 2"
+     state_topic: GHP/3/240/2116
+     unique_id: "ghp/settings_2"
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
+   - name: "Service settings 3"
+     state_topic: GHP/3/240/2132
+     unique_id: "ghp/settings_3"
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
+
+   - name: "Service settings 4"
+     state_topic: GHP/3/240/2148
+     unique_id: "ghp/settings_4"
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
+
+   - name: "Service settings 5"
+     state_topic: GHP/3/240/2164
+     unique_id: "ghp/settings_5"
+     device:
+        identifiers: ghp-mm08
+        name: GHP-MM08
+
    - name: "Compressor operating frequency"
      state_topic: GHP/10/240/300
      value_template: "{{ value_json[0] }}"
