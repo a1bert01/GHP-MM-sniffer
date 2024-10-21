@@ -53,9 +53,13 @@ def verify_modbus_crc(data: bytes) -> bool:
 
 def publish(slave,op,addr,data):
     data = json.dumps(data)
+    if addr >= 2100 and addr < 2200:  # retain service settings
+      retain = True;
+    else:
+      retain = False
     MQTT_TOPIC=f"{MQTT_TOPIC_PREFIX}/{op}/{slave}/{addr}"
     _logger.info(f"{MQTT_TOPIC}: {data}")
-    mqtt_client.publish(MQTT_TOPIC, data)
+    mqtt_client.publish(MQTT_TOPIC, data, retain = retain)
 
 def decodeModbus():
     global buffer
