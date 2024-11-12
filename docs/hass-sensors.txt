@@ -570,11 +570,24 @@ mqtt:
    
    - name: "Defrost"
      state_topic: GHP/10/240/1000
+     value_template: "{{ value_json[0] | bitwise_and(2) }}"
+     device_class:
+     payload_on: "2"
+     payload_off: "0"
+     unique_id: "ghp/defrost"
+     device:
+        identifiers: ghp-mm08
+        manufacturer: Grundig
+        name: GHP-MM08
+        model: MM08
+
+   - name: "Antifreeze"
+     state_topic: GHP/10/240/1000
      value_template: "{{ value_json[0] | bitwise_and(4) }}"
      device_class:
      payload_on: "4"
      payload_off: "0"
-     unique_id: "ghp/defrost"
+     unique_id: "ghp/antifreeze"
      device:
         identifiers: ghp-mm08
         manufacturer: Grundig
