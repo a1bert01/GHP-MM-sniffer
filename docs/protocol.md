@@ -6,7 +6,7 @@ communication between the unit and the controller:
 ```
 -unit regularly writes its operating data to the  at addr position 300+40 see manual - parameter reading ( M + down arrow buttons )
 -the unit regularly writes temperatures and something (addr position 1000): GHP/10/240/1000: [0, 21, 44, 21, 0]
-0 - status  (1-oil return, 4 - defrost, bitmask probably)
+0 - status  (1-oil return, 4 - defrost, bitmask: 0 oil return, 1 defrost 2 antifreeze)
 21 - return temp
 44 - DHW temp
 21 - output temp
