@@ -15,7 +15,7 @@ communication between the unit and the controller:
 -the unit regularly reads the driver status (addr position 2000): GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]:
 8 - current operational mode (1-cooling 2-heating 4-auto 8-DHW  9-Cooling+DHW 10-heating & DHW;  bit mask 0 coling 1 heating 2 auto 3 DHW)
 1 - controller is on (0 - off)
-16 - some bit mask 16 = 00001000 5th bit night mode enabled
+16 - some bit mask 16 = 00001000 5th bit night mode enabled 4th-electric heating
 20 - cooling temperature
 43 - DHW temperature
 27 - heating temperature
