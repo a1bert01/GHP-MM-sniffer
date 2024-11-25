@@ -10,7 +10,7 @@ communication between the unit and the controller:
 21 - return temp
 44 - DHW temp
 21 - output temp
-0 -  (error code??)
+0 -  (error code??) 20481 = P01
 
 -the unit regularly reads the controller status (addr position 2000): GHP/3/240/2000: [8, 1, 16, 20, 26, 43, 27]:
 8 - current operational mode (1-cooling 2-heating 4-auto 8-DHW  9-Cooling+DHW 10-heating & DHW;  bit mask 0 coling 1 heating 2 auto 3 DHW)
