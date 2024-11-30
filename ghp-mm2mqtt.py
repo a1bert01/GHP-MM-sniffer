@@ -7,19 +7,11 @@ import struct
 import json
 import time
 import logging
+from ghp_config import *
+
 #logging.basicConfig(level=logging.INFO)
 logging.basicConfig(level=logging.ERROR)
 _logger = logging.getLogger(__name__)
-
-#serial port
-serial_port='/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A5069RR4-if00-port0';
-
-# MQTT broker settings
-MQTT_BROKER = "172.16.1.254"  # Replace with your broker address
-MQTT_PORT = 1883  # Default MQTT port
-MQTT_TOPIC_PREFIX= "GHP"
-MQTT_USERNAME = "ghp"  # Replace with your MQTT username
-MQTT_PASSWORD = "65asdf654"  # Replace with your MQTT password
 
 #modbus message to write, it's emptied upon writing and can be set
 #by mqtt MQTT_TOPIC_PREFIX/set topic in on_message()
@@ -138,7 +130,7 @@ readAddr=0
 
 # Open serial port
 ser = serial.Serial(
-    port=serial_port,
+    port=SERIAL_PORT,
     baudrate=9600,
     bytesize=serial.EIGHTBITS,
     parity=serial.PARITY_NONE,
